@@ -66,3 +66,8 @@ if(BUILD_SAMPLES)
 
   add_executable(timeserver samples/timeserver.cpp)
 endif()
+
+install(DIRECTORY include DESTINATION include/knet)
+install(DIRECTORY opt/asio/asio/include DESTINATION include/asio)
+install(DIRECTORY opt/fmt/include/fmt DESTINATION include/fmt)
+install(DIRECTORY opt/spdlog/include/spdlog DESTINATION include/spdlog)
