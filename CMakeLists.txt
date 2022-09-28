@@ -2,11 +2,11 @@ cmake_minimum_required (VERSION 3.1.0)
 project (knet)
 
 set(CMAKE_CXX_STANDARD 17)
+option(BUILD_SAMPLES "Build samples" ON)
 
 include_directories("include")
-#include_directories("opt/asio/asio/include")
-include_directories("opt/asio-1.19.2/include")
-include_directories("opt/spdlog-1.9.2/include")
+include_directories("opt/asio/asio/include")
+include_directories("opt/spdlog/include")
  
 include_directories("kcp")
 
@@ -22,45 +22,47 @@ elseif(WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}   -D NDEBUG")
 endif()
 
-include_directories(opt/fmt-8.0.1/include) 
-add_subdirectory(opt/fmt-8.0.1 EXCLUDE_FROM_ALL) 
+include_directories(opt/fmt/include) 
+add_subdirectory(opt/fmt EXCLUDE_FROM_ALL) 
 
 ADD_DEFINITIONS(-DASIO_STANDALONE)
 
-#add the executable
-#add_executable(server samples/server.cpp  )
-#add_executable(mtserver samples/mt_server.cpp  )
-add_executable(tcpserver samples/tcpserver.cpp  ) 
+if(BUILD_SAMPLES)
+  #add the executable
+  #add_executable(server samples/server.cpp  )
+  #add_executable(mtserver samples/mt_server.cpp  )
+  add_executable(tcpserver samples/tcpserver.cpp  ) 
 
-add_executable(tcpclient samples/tcpclient.cpp) 
+  add_executable(tcpclient samples/tcpclient.cpp) 
 
-add_executable(fserver  samples/factory_server.cpp)  
+  add_executable(fserver  samples/factory_server.cpp)  
 
-add_executable(webserver samples/webserver.cpp   ) 
+  add_executable(webserver samples/webserver.cpp   ) 
 
-add_executable(webclient samples/webclient.cpp   ) 
+  add_executable(webclient samples/webclient.cpp   ) 
 
-add_executable(wsclient samples/wsclient.cpp    ) 
+  add_executable(wsclient samples/wsclient.cpp    ) 
 
-add_executable(wsserver samples/wsserver.cpp    )
+  add_executable(wsserver samples/wsserver.cpp    )
 
-add_executable(kcpserver samples/kcpserver.cpp  kcp/ikcp.c)
+  add_executable(kcpserver samples/kcpserver.cpp  kcp/ikcp.c)
 
-add_executable(udpclient samples/udpclient.cpp  ) 
+  add_executable(udpclient samples/udpclient.cpp  ) 
 
-add_executable(udpserver samples/udpserver.cpp  ) 
+  add_executable(udpserver samples/udpserver.cpp  ) 
 
-add_executable(pipeserver samples/pipe_server.cpp  ) 
+  add_executable(pipeserver samples/pipe_server.cpp  ) 
 
-add_executable(pipeclient samples/pipe_client.cpp  ) 
+  add_executable(pipeclient samples/pipe_client.cpp  ) 
 
-add_executable(unbindpipeclient samples/unbind_pipe_client.cpp  ) 
+  add_executable(unbindpipeclient samples/unbind_pipe_client.cpp  ) 
 
-add_executable(unbindpipeserver samples/unbind_pipe_server.cpp  ) 
+  add_executable(unbindpipeserver samples/unbind_pipe_server.cpp  ) 
 
-add_executable(testurl samples/test_url.cpp  )
+  add_executable(testurl samples/test_url.cpp  )
 
 
-add_executable(timeclient samples/timeclient.cpp)
+  add_executable(timeclient samples/timeclient.cpp)
 
-add_executable(timeserver samples/timeserver.cpp)
+  add_executable(timeserver samples/timeserver.cpp)
+endif()
