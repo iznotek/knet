@@ -22,14 +22,13 @@ namespace knet {
 			using FactoryPtr = Factory*;
 			enum { kMaxRecvBufferSize = 4096 };
 	
-
-			UdpListener(WorkerPtr w = nullptr)
-				: net_worker(w) {
-				if (net_worker == nullptr) {
+			UdpListener(FactoryPtr f = nullptr, WorkerPtr w = nullptr)
+				: net_worker(w), net_factory(f) {
+				if (net_worker == nullptr)
 					net_worker = std::make_shared<Worker>();
+
+				if (net_worker != nullptr)
 					net_worker->start();
-				}
-				
 			}
 
 			bool start(uint16_t port, NetOptions opt = {}, FactoryPtr fac  = nullptr ){
