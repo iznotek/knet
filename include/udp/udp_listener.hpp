@@ -29,6 +29,9 @@ namespace knet {
 
 				if (net_worker != nullptr)
 					net_worker->start();
+					
+				if (net_factory != nullptr)
+					add_factory_event_handler(std::is_base_of<KNetHandler<T>, Factory>(), net_factory);
 			}
 
 			bool start(uint16_t port, NetOptions opt = {}, FactoryPtr fac  = nullptr ){
@@ -138,7 +141,20 @@ namespace knet {
 				}
 			}
 
-		private:			 
+		private:	
+			inline void add_factory_event_handler(std::true_type, FactoryPtr fac)
+			{
+				auto evtHandler = dynamic_cast<KNetHandler<T> *>(fac);
+				if (evtHandler)
+				{
+					add_event_handler(evtHandler);
+				}
+			}
+
+			inline void add_factory_event_handler(std::false_type, FactoryPtr fac)
+			{
+			}
+			
 			virtual bool handle_data(TPtr conn, const std::string &msg)
 			{						
 				return invoke_data_chain(conn, msg);
