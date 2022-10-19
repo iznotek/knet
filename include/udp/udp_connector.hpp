@@ -28,20 +28,20 @@ namespace knet
 			UdpConnector(FactoryPtr fac = nullptr, WorkerPtr w = nullptr) {
 				net_factory = fac;
 				net_worker = w;
-				if (fac != nullptr ){
+				
+				if (net_factory != nullptr )
 					add_factory_event_handler(std::integral_constant<bool, std::is_base_of<KNetHandler<T>, Factory >::value>(), fac);
-				} 
+				
+				if (net_worker == nullptr)
+					net_worker = std::make_shared<Worker>(nullptr, this);
+
+				if (net_worker != nullptr)
+					net_worker->start();
 			}
 
 			bool start(NetOptions opts = {},FactoryPtr fac = nullptr)
 			{
-				net_factory = fac; 
 				net_options = opts; 
-				if (net_worker == nullptr)
-				{
-					net_worker = std::make_shared<Worker>(nullptr , this );
-					net_worker->start();
-				}
 				return true;
 			}
 			
