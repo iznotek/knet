@@ -324,6 +324,8 @@ namespace knet
 							else
 							{
 								elog("async receive error {}, {}", ec.value(), ec.message());
+								std::this_thread::sleep_for(std::chrono::milliseconds(500));
+								do_receive();
 							}
 						});
 			}
