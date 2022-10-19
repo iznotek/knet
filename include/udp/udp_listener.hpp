@@ -63,6 +63,13 @@ namespace knet {
 				return true; 		
 			}
  
+ 			bool has_connections() {
+				return connections.size();
+			}
+			
+			int nb_connections() {
+				return connections.size();
+			}
 
 			TPtr find_connection(udp::endpoint pt) {
 				auto itr = connections.find(addrstr(pt));
