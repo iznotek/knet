@@ -89,10 +89,12 @@ public:
 		dlog("send text length is {}", msg.length());
 		std::vector<uint8_t> header;
 		//uint8_t maskKey[4] = {0x12, 0x34, 0x56, 0x78}; 
+		
+		std::srand(std::time(nullptr));
 		uint8_t maskKey[4] ; 
 		for (auto& m : maskKey)
 		{
-			m = static_cast<uint8_t>(random()); 
+			m = static_cast<uint8_t>(std::rand()); 
 		}
 
 
