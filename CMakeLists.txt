@@ -5,8 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 option(BUILD_SAMPLES "Build samples" ON)
 
 include_directories("include")
+
 include_directories("opt/asio/asio/include")
 include_directories("opt/spdlog/include")
+# include_directories("opt/asio-1.24.0/include")
+# include_directories("opt/spdlog-1.11.0/include")
  
 include_directories("kcp")
 
@@ -24,6 +27,8 @@ endif()
 
 include_directories(opt/fmt/include) 
 add_subdirectory(opt/fmt EXCLUDE_FROM_ALL) 
+# include_directories(opt/fmt-9.1.0/include) 
+# add_subdirectory(opt/fmt-9.1.0 EXCLUDE_FROM_ALL) 
 
 ADD_DEFINITIONS(-DASIO_STANDALONE)
 
